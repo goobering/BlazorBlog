@@ -1,6 +1,6 @@
 using System;
 
-namespace PersonalBlog.Blog.Shared
+namespace Blog.Shared
 {
     public class BlogPost
     {
