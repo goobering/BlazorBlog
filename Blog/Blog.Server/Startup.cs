@@ -8,30 +8,47 @@ using System.Linq;
 using System.Net.Mime;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using System;
 
 namespace Blog.Server
 {
     public class Startup
     {
-        
+        public IConfiguration Configuration { get; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-            .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json");
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
 
-            Configuration = builder.Build();
+                // Add support for user secrets in development mode
+                if(env.IsDevelopment())
+                {
+                    builder.AddUserSecrets<Startup>();
+                }
+
+                Configuration = builder.Build();
         }
-
-        static IConfiguration Configuration { get; set; }
-
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            
+            
             services.AddDbContext<BlogContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(@Configuration["DefaultConnection"]));
 
             services.AddMvc();
 
@@ -48,6 +65,8 @@ namespace Blog.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            Console.WriteLine(Configuration["DefaultConnection"]);
+
             app.UseResponseCompression();
 
             if (env.IsDevelopment())
