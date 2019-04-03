@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System;
+using Blog.Shared;
 
 namespace Blog.Server
 {
@@ -46,9 +47,9 @@ namespace Blog.Server
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             
-            
             services.AddDbContext<BlogContext>(options =>
                options.UseSqlServer(@Configuration["DefaultConnection"]));
+            services.AddScoped<IDataRepository<BlogPost>, BlogPostManager>();
 
             services.AddMvc();
 
