@@ -1,0 +1,9 @@
+@inherits Blog.Client.Features.Home.BlogPostPreviewModel
+
+<div>
+    <NavLink href="@($"viewpost/{blogPost.Id}")">
+        <h2>@blogPost.Title</h2>
+        <h3>@blogPost.PostSummary</h3>
+        <p>Posted by @blogPost.Author on @blogPost.Posted</p>
+    </NavLink>
+</div>
