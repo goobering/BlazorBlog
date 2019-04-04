@@ -19,6 +19,6 @@ namespace Blog.Shared
             }
         }
         public DateTime Posted { get; set; }
-
+        public string ImageUrl { get; set; }
     }
 }

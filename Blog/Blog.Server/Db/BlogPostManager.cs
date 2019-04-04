@@ -36,6 +36,7 @@ namespace Blog.Server
             post.Author = entity.Author;
             post.Post = entity.Post;
             post.Posted = entity.Posted;
+            post.ImageUrl = entity.ImageUrl;
 
             _blogcontext.SaveChanges();
         }

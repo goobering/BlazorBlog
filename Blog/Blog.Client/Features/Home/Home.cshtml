@@ -2,13 +2,12 @@
 @layout MainLayout
 @inherits Blog.Client.Features.Home.HomeModel
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="w-100">
             @foreach(var post in blogPosts)
             {
                 <BlogPostPreview BlogPost=@post></BlogPostPreview>
-                <hr />
             }
         </div>
     </div>

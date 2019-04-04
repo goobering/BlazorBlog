@@ -1,3 +1,15 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+body {
+    font-family: 'Karla' !important;
+}
 
+.navlink-container {
+    background-position: center center; 
+    background-size: cover;
+    height: 680px;
+}
+
+.post-heading {
+    font-family: 'Playfair-Display';
+}

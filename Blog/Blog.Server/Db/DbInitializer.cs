@@ -28,8 +28,6 @@ namespace Blog.Server
                 context.BlogPosts.Add(seedBlogPost);
                 context.SaveChanges();
             }
-            
-
         }
     }
 }
