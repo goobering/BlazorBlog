@@ -1,9 +1,0 @@
-@inherits Blog.Client.Features.Home.BlogPostPreviewModel
-
-<div class="navlink-container d-flex align-items-center justify-content-center text-center" style="background-image: url('@blogPost.ImageUrl');">
-    <NavLink href="@($"viewpost/{blogPost.Id}")" class="text-white">
-        <h2 class="post-heading display-2">@blogPost.Title</h2>
-        <h3 class="display-3">@blogPost.PostSummary</h3>
-        <p>Posted by @blogPost.Author on @blogPost.Posted</p>
-    </NavLink>
-</div>

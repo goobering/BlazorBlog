@@ -1,0 +1,9 @@
+@page "/viewpost/{postId}"
+@layout MainLayout
+@inherits Blog.Client.Features.ViewPost.ViewPostModel
+
+
+<BlogPostPreview BlogPost=@BlogPost></BlogPostPreview>
+<p>
+    @BlogPost.Post
+</p>
