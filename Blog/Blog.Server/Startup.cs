@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System;
 using Blog.Shared;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Blog.Server
 {
@@ -52,7 +54,7 @@ namespace Blog.Server
             services.AddScoped<IDataRepository<BlogPost>, BlogPostManager>();
 
             services.AddMvc();
-
+            
             services.AddResponseCompression(options =>
             {
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
@@ -66,8 +68,6 @@ namespace Blog.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            Console.WriteLine(Configuration["DefaultConnection"]);
-
             app.UseResponseCompression();
 
             if (env.IsDevelopment())
@@ -79,6 +79,8 @@ namespace Blog.Server
             {
                 routes.MapRoute(name: "default", template: "{controller}/{action}/{id?}");
             });
+
+            app.UseStaticFiles();
 
             app.UseBlazor<Client.Startup>();
         }

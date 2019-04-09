@@ -9,12 +9,7 @@
                 <input bind=@Title placeholder="Title" class="form-control" />
                 <textarea bind=@Post placeholder="Write your post" rows="25"></textarea>
                 <button class="btn btn-primary float-right" onclick="@SavePost">Post</button>
-                <ul>
-                    @foreach(var img in imgList)
-                    {
-                        <li>@img</li>
-                    }
-                </ul>
+                <input type="file" onchange=@UploadFile ref="fileUpload" />
             </div>
         </div>
     </div>

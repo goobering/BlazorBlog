@@ -7,6 +7,7 @@ using Blog.Shared;
 using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
+using Microsoft.JSInterop;
 
 namespace Blog.Client.Features.AddPost
 {
@@ -18,6 +19,10 @@ namespace Blog.Client.Features.AddPost
         [Inject]
         private IUriHelper _uriHelper { get; set; }
 
+        [Inject]
+        private IJSRuntime JsRuntime { get; set; }
+        
+        protected ElementRef fileUpload;
         protected string Post { get; set; }
         protected string Title { get; set; }
         protected List<string> imgList { get; set; } = new List<string>();
@@ -45,11 +50,9 @@ namespace Blog.Client.Features.AddPost
 
         private async Task LoadImages()
         {
-            string sourceDir = @"./wwwroot/img";
-
             try
             {
-                foreach(var img in Directory.EnumerateFiles(sourceDir, "*.webp", SearchOption.TopDirectoryOnly))
+                foreach(var img in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "img"), "*.webp", SearchOption.TopDirectoryOnly))
                 {
                     imgList.Add(img);
                 }
@@ -58,6 +61,13 @@ namespace Blog.Client.Features.AddPost
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        protected async Task UploadFile()
+        {
+            var data = await JsRuntime.InvokeAsync<string>("fileReaderFunctions.readUploadedFileAsText", fileUpload);
+            var response = await _httpClient.PostAsync(Urls.UploadFile, new ByteArrayContent(Convert.FromBase64String(data)));
+            var fileTempName = await response.Content.ReadAsStringAsync();
         }
     }
 }
