@@ -2,15 +2,20 @@
 @layout MainLayout
 @inherits AddPostModel
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="editor">
                 <input bind=@Title placeholder="Title" class="form-control" />
-                <textarea bind=@Post placeholder="Write your post" rows="25"></textarea>
+                <textarea class="w-100" bind-value-oninput=@Post placeholder="Write your post" rows="25"></textarea>
                 <button class="btn btn-primary float-right" onclick="@SavePost">Post</button>
                 <input type="file" onchange=@UploadFile ref="fileUpload" />
             </div>
+        </div>
+        <div class="col-md-6">
+            <p>
+                @((MarkupString)Post)
+            </p>
         </div>
     </div>
 </div>
