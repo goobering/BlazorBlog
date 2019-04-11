@@ -45,22 +45,6 @@ namespace Blog.Client.Features.AddPost
 
         protected override async Task OnInitAsync()
         {
-            await LoadImages();
-        }
-
-        private async Task LoadImages()
-        {
-            try
-            {
-                foreach(var img in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "img"), "*.webp", SearchOption.TopDirectoryOnly))
-                {
-                    imgList.Add(img);
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
         }
 
         protected async Task UploadFile()
