@@ -26,7 +26,6 @@ namespace Blog.Client.Features.ViewPost
         private async Task LoadBlogPost()
         {
             BlogPost = await _httpClient.GetJsonAsync<BlogPost>(Urls.BlogPost.Replace("{id}", PostId));
-            BlogPost.Post = Markdown.ToHtml(BlogPost.Post);
         }
     }
 }

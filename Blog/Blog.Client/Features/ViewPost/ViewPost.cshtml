@@ -4,6 +4,4 @@
 
 
 <BlogPostPreview BlogPost=@BlogPost></BlogPostPreview>
-<p>
-    @((MarkupString)BlogPost.Post)
-</p>
+<MarkdownView Content=@BlogPost.Post />
