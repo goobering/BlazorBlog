@@ -9,7 +9,7 @@
                 <input bind=@Title placeholder="Title" class="form-control" />
                 <textarea class="w-100" bind-value-oninput=@Post placeholder="Write your post" rows="25"></textarea>
                 <button class="btn btn-primary float-right" onclick="@SavePost">Post</button>
-                <input type="file" onchange=@UploadFile ref="fileUpload" />
+                <FileUploader Url=@UploadUrl />
             </div>
         </div>
         <div class="col-md-6">
