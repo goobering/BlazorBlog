@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Blog.Shared
 {
@@ -20,5 +21,6 @@ namespace Blog.Shared
         }
         public DateTime Posted { get; set; }
         public string ImageUrl { get; set; }
+        public Image Image { get; set; }
     }
 }
